@@ -1,0 +1,10 @@
+{
+    "name": "meyson/illia-mvc-core",
+    "authors": [
+        {
+            "name": "meyson",
+            "email": "meyson.rylit@gmail.com"
+        }
+    ],
+    "require": {}
+}
