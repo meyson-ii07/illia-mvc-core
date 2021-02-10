@@ -14,8 +14,11 @@ class Database
         $dsn = $config['dsn'] ?? '';
         $user = $config['user'] ?? '';
         $password = $config['password'] ?? '';
-
-        $this->pdo = new \PDO($dsn, $user, $password);
+        try {
+            $this->pdo = new \PDO($dsn, $user, $password);
+        } catch (\Exception $e) {
+            die("Could not connect to the database: " . $e->getMessage());
+        }
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
@@ -76,6 +79,11 @@ class Database
     public function prepare($quarry)
     {
         return $this->pdo->prepare($quarry);
+    }
+
+    public function prepareQuarry($quarry)
+    {
+        return $this->pdo->query($quarry);
     }
     
     public function executeQuarry($quarry)
