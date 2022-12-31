@@ -1,5 +1,6 @@
 {
     "name": "meyson/illia-mvc-core",
+    "description": "Core for my custom MVC framework",
     "authors": [
         {
             "name": "meyson",
@@ -8,5 +9,6 @@
     ],
     "require": {
         "php": ">=7.4"
-    }
+    },
+    "license": "MIT"
 }
