@@ -6,5 +6,7 @@
             "email": "meyson.rylit@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=7.4"
+    }
 }

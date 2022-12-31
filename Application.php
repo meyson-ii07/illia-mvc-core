@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use Twig\Environment;
+
 class Application
 {
     public static string $ROOT_DIR;
@@ -12,6 +14,7 @@ class Application
     public Response $response;
     public Session $session;
     public Database $db;
+    public Environment $twig;
 
     /**
      * Application constructor.
@@ -36,4 +39,10 @@ class Application
     {
         echo $this->router->resolve();
     }
+
+    public function setTwig($twig)
+    {
+        $this->twig = $twig;
+    }
+
 }

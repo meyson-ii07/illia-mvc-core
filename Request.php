@@ -8,7 +8,7 @@ class Request
 {
 
     public static string $GET_METHOD = 'get';
-    public static string $POST_METHOD = 'get';
+    public static string $POST_METHOD = 'post';
 
     /**
      * Returns current path without parameters
@@ -40,7 +40,7 @@ class Request
      */
     public function isPost(): bool
     {
-        return $this->getMethod() === 'post';
+        return $this->getMethod() === self::$POST_METHOD;
     }
 
     /**
@@ -48,7 +48,7 @@ class Request
      */
     public function isGet(): bool
     {
-        return $this->getMethod() === 'get';
+        return $this->getMethod() === self::$GET_METHOD;
     }
 
     /**

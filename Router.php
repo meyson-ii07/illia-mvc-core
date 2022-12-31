@@ -83,7 +83,7 @@ class Router
             $token = $this->request->getCsrfToken();
             if(Application::$app->session->checkCsrfToken($token)) {
                 Application::$app->response->setStatusCode(404);
-                return $this->renderView('400_');
+                return Application::$app->twig->render('400_.html.twig');
             }
         }
 
@@ -93,10 +93,7 @@ class Router
        $callback = ($this->routes[$method][$path] ?? $this->routes['any'][$path]) ?? false;
        if (!$callback) {
            Application::$app->response->setStatusCode(404);
-           return $this->renderView('404_');
-       }
-       if (is_string($callback)) {
-           return $this->renderView($callback);
+           return Application::$app->twig->render('400_.html.twig');
        }
        if (is_array($callback)) {
            if (!class_exists($callback[0])) {
@@ -105,30 +102,7 @@ class Router
            }
            $callback[0] = new $callback[0];
        }
-       return call_user_func($callback, $this->request);
-    }
-
-    /**
-     * Renders view
-     * @param string $callback
-     * @return string|string[]
-     */
-    public function renderView(string $callback, $params = [])
-    {
-        $layoutContent = $this->renderLayout();
-        $viewContent = $this->renderJustView($callback, $params);
-        return str_replace('{{content}}', $viewContent, $layoutContent);
-    }
-
-    /**
-     * Returns main layout
-     * @return false|string
-     */
-    public function renderLayout()
-    {
-        ob_start();
-        require_once Application::$ROOT_DIR."/views/layouts/main.php";
-        return ob_get_clean();
+       return call_user_func($callback);
     }
 
     /**
