@@ -15,6 +15,5 @@
             "app\\core": "src/"
         }
     },
-    "license": "MIT",
-    "version": "1.0.2"
+    "license": "MIT"
 }
