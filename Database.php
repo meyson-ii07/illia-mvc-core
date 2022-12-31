@@ -17,11 +17,14 @@ class Database
         try {
             $this->pdo = new \PDO($dsn, $user, $password);
         } catch (\Exception $e) {
-            die("Could not connect to the database: " . $e->getMessage());
+            die("Could not connect to the database: " . $e->getMessage().PHP_EOL);
         }
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     *  Applies migrations
+     */
     public function applyMigrations()
     {
         $this->createMigrationsTable();
@@ -47,11 +50,14 @@ class Database
         if (!empty($newMigrations)) {
             $this->saveMigrations($newMigrations);
         } else {
-            echo "All migrations are applied";
+            echo "All migrations are applied".PHP_EOL;
         }
 
     }
 
+    /**
+     *  Creates migration table
+     */
     public function createMigrationsTable()
     {
         $this->pdo->exec("CREATE TABLE IF NOT EXISTS migrations (
@@ -61,6 +67,10 @@ class Database
         ) ENGINE=INNODB;");
     }
 
+    /**
+     * Returns array of applied migrations
+     * @return array
+     */
     public function getAppliedMigrations()
     {
         $statement = $this->pdo->prepare("SELECT migration FROM migrations");
@@ -69,6 +79,10 @@ class Database
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Saves migrations that have being applied
+     * @param $migrations
+     */
     public function saveMigrations($migrations)
     {
         $values = implode(array_map(fn($m) => "('$m')", $migrations));
@@ -76,16 +90,30 @@ class Database
         $statement->execute();
     }
 
+    /**
+     * Prepers SQL query
+     * @param $quarry
+     * @return false|\PDOStatement
+     */
     public function prepare($quarry)
     {
         return $this->pdo->prepare($quarry);
     }
 
+    /**
+     * Prepers SQL query
+     * @param $quarry
+     * @return false|\PDOStatement
+     */
     public function prepareQuarry($quarry)
     {
         return $this->pdo->query($quarry);
     }
-    
+
+    /**
+     * Executes givven quarry
+     * @param $quarry
+     */
     public function executeQuarry($quarry)
     {
         $this->pdo->exec($quarry);

@@ -7,6 +7,9 @@ namespace app\core;
 class Request
 {
 
+    public static string $GET_METHOD = 'get';
+    public static string $POST_METHOD = 'get';
+
     /**
      * Returns current path without parameters
      * @return string
@@ -49,6 +52,7 @@ class Request
     }
 
     /**
+     * Returns data of current request
      * @return array
      */
     public function getData(): array
@@ -67,5 +71,10 @@ class Request
         }
 
         return $data;
+    }
+
+    public function getCsrfToken()
+    {
+        return $_POST['csrf_token'] ?? null;
     }
 }

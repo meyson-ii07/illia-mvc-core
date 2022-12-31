@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\core\Services\QueryBuilder;
 use PDO;
 
 abstract class Model
@@ -20,6 +21,10 @@ abstract class Model
         self::RULE_EMAIL => 'This field should be a valid email address',
     ];
 
+    /**
+     * Sets given data for current model
+     * @param $data
+     */
     public function handleData($data)
     {
         foreach ($data as $key => $value) {
@@ -29,8 +34,15 @@ abstract class Model
         }
     }
 
+    /**
+     * Set of required validation rules
+     * @return array
+     */
     abstract public function rules(): array;
 
+    /**
+     * Validates current set of values
+     */
     public function validate()
     {
         $this->errors = [];
@@ -56,6 +68,13 @@ abstract class Model
             }
         }
     }
+
+    /**
+     * Adds validation error for given attribute
+     * @param $attribute
+     * @param $ruleName
+     * @param array $rules
+     */
     protected function addError($attribute, $ruleName, $rules = [])
     {
         $message = self::MESSAGES[$ruleName] ?? '';
@@ -66,6 +85,7 @@ abstract class Model
     }
 
     /**
+     * Returns array of errors for current model
      * @return array
      */
     public function getErrors($attr) : array
@@ -73,10 +93,22 @@ abstract class Model
         return key_exists($attr, $this->errors) ? $this->errors[$attr] : [];
     }
 
+    /**
+     * Returns database table name for current model
+     * @return string
+     */
     abstract public static function tableName(): string;
 
+    /**
+     * Returns set of attributes of current model
+     * @return array
+     */
     abstract public function attributes(): array;
 
+    /**
+     * Saves data to database
+     * @return bool
+     */
     public function save()
     {
         $SQL = null;
@@ -85,7 +117,7 @@ abstract class Model
         $attributes = $this->attributes();
         $params = array_map(fn($attr) => ":$attr", $attributes);
 
-        if (isset($id)) {
+        if (isset($id) && !empty($id)) {
             $values = array_combine($attributes, $params);
             $res = [];
             foreach ($values as $key => $value) {
@@ -107,12 +139,16 @@ abstract class Model
         try {
             $statement->execute();
         } catch (\Exception  $e) {
-            echo $e->getMessage();
+            echo $e->getMessage().PHP_EOL;
         }
 
         return true;
     }
 
+    /**
+     * Deletes record from database
+     * @param $id
+     */
     public static function delete($id)
     {
         $tableName = static::tableName();
@@ -128,6 +164,11 @@ abstract class Model
         }
     }
 
+    /**
+     * Returns record from database with given id
+     * @param int|null $id
+     * @return mixed
+     */
     public static function findOne(int $id = null)
     {
         $tableName = static::tableName();
@@ -147,6 +188,14 @@ abstract class Model
         }
         return $result;
     }
+
+    /**
+     * Returns records from database that match given options
+     * @param array $where
+     * @param int|null $limit
+     * @param string|null $order
+     * @return array
+     */
     public static function find(array $where = [], int $limit = null, string $order = null)
     {
 
@@ -177,6 +226,24 @@ abstract class Model
         } catch (\Exception  $e) {
             die($e->getMessage());
         }
+        return $result;
+    }
+
+    public static function select(array $args = null): QueryBuilder
+    {
+        $qb = new QueryBuilder();
+        $result = $qb->select(static::tableName(), $args);
+
+//        if (is_array($result) && $result['convert']) {
+//            $models = [];
+//            foreach ($result as $item) {
+//                $modelClass = static::class;
+//                $model = new $modelClass;
+//                $model->handleData($item);
+//                $models[] = $model;
+//            }
+//
+//        }
         return $result;
     }
 }
