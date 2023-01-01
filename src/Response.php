@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Meyson\Mvc\src;
+namespace Meyson\IlliaMvcCore;
 
 
 class Response

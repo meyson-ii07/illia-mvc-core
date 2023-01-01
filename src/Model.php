@@ -1,8 +1,8 @@
 <?php
 
-namespace Meyson\Mvc\src;
+namespace Meyson\IlliaMvcCore;
 
-use Meyson\Mvc\src\Services\QueryBuilder;
+use Meyson\IlliaMvcCore\Services\QueryBuilder;
 use PDO;
 
 abstract class Model

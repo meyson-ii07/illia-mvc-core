@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Meyson\Mvc\src\Services;
+namespace Meyson\IlliaMvcCore\Services;
 
 
 use Meyson\Mvc\src\Application;
