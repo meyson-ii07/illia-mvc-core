@@ -16,6 +16,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-      "ext-pdo": "*"
-    }
+        "ext-pdo": "*",
+        "php": ">=7.4"
+    },
 }
