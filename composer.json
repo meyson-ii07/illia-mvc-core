@@ -11,8 +11,8 @@
         "php": ">=7.4"
     },
     "autoload": {
-        "psr-0": {
-            "Meyson\\Mvc": "."
+        "psr-4": {
+            "Meyson\\Mvc": "/"
         }
     },
     "license": "MIT"
