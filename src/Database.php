@@ -1,9 +1,7 @@
 <?php
 
 
-namespace app\core;
-
-use app\migrations\m0001_initial;
+namespace Meyson\Mvc\src;
 
 class Database
 {

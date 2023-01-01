@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core;
+namespace Meyson\Mvc\src;
 
-use app\core\Services\QueryBuilder;
+use Meyson\Mvc\src\Services\QueryBuilder;
 use PDO;
 
 abstract class Model

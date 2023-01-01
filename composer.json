@@ -1,19 +1,21 @@
 {
     "name": "meyson/illia-mvc-core",
     "description": "Core for my custom MVC framework",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Meyson\\IlliaMvcCore\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "meyson",
             "email": "meyson.rylit@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "Meyson\\Mvc": "/"
-        }
-    },
-    "license": "MIT"
+      "ext-pdo": "*"
+    }
 }

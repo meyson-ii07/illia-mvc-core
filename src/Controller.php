@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace Meyson\Mvc\src;
 
 class Controller
 {

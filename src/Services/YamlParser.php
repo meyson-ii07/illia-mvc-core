@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\core\Services;
+namespace Meyson\Mvc\src\Services;
 
 
 class YamlParser

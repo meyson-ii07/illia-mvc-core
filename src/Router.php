@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core;
+namespace Meyson\Mvc\src;
 
-use app\core\Services\YamlParser;
+use Meyson\Mvc\src\Services\YamlParser;
 use InvalidArgumentException;
 
 class Router

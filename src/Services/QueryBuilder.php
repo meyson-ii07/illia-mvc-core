@@ -1,10 +1,10 @@
 <?php
 
 
-namespace app\core\Services;
+namespace Meyson\Mvc\src\Services;
 
 
-use app\core\Application;
+use Meyson\Mvc\src\Application;
 use PDO;
 
 class QueryBuilder
