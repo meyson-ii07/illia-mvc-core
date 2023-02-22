@@ -14,8 +14,6 @@ abstract class Model
 
     private array $errors = [];
 
-    protected static string $tableName;
-
     private const MESSAGES = [
         self::RULE_REQUIRED => 'This field is required',
         self::RULE_MAX => 'This field should contain less then {max} symbols',
