@@ -14,12 +14,20 @@ abstract class Model
 
     private array $errors = [];
 
+    protected static string $tableName;
+
     private const MESSAGES = [
         self::RULE_REQUIRED => 'This field is required',
         self::RULE_MAX => 'This field should contain less then {max} symbols',
         self::RULE_MIN => 'This field should contain more then {min} symbols',
         self::RULE_EMAIL => 'This field should be a valid email address',
     ];
+
+    public function __construct()
+    {
+        $instance = static();
+        self::$tableName = $instance::tableName();
+    }
 
     /**
      * Sets given data for current model
@@ -151,7 +159,7 @@ abstract class Model
      */
     public static function delete($id)
     {
-        $tableName = static::tableName();
+        $tableName = self::$tableName;
         if (isset($id)) {
             $SQL = "DELETE FROM $tableName
             WHERE id = $id";
@@ -171,7 +179,7 @@ abstract class Model
      */
     public static function findOne(int $id = null)
     {
-        $tableName = static::tableName();
+        $tableName = self::$tableName;
         $result = null;
         if ($id !== null) {
             $SQL = "SELECT * FROM $tableName
@@ -199,7 +207,7 @@ abstract class Model
     public static function find(array $where = [], int $limit = null, string $order = null)
     {
 
-        $tableName = static::tableName();
+        $tableName = self::$tableName;
         $result = null;
         $SQL = "SELECT * FROM $tableName";
         if (!empty($where)) {
@@ -232,7 +240,7 @@ abstract class Model
     public static function select(array $args = null): QueryBuilder
     {
         $qb = new QueryBuilder();
-        $result = $qb->select(static::tableName(), $args);
+        $result = $qb->select(self::$tableName, $args);
 
 //        if (is_array($result) && $result['convert']) {
 //            $models = [];
