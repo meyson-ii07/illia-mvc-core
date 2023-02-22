@@ -2,8 +2,8 @@
 
 namespace Meyson\IlliaMvcCore;
 
-use Meyson\Mvc\src\Services\YamlParser;
 use InvalidArgumentException;
+use Meyson\IlliaMvcCore\Services\YamlParser;
 
 class Router
 {

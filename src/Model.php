@@ -23,12 +23,6 @@ abstract class Model
         self::RULE_EMAIL => 'This field should be a valid email address',
     ];
 
-    public function __construct()
-    {
-        $instance = static();
-        self::$tableName = $instance::tableName();
-    }
-
     /**
      * Sets given data for current model
      * @param $data
@@ -159,7 +153,7 @@ abstract class Model
      */
     public static function delete($id)
     {
-        $tableName = self::$tableName;
+        $tableName = static::tableName();
         if (isset($id)) {
             $SQL = "DELETE FROM $tableName
             WHERE id = $id";
@@ -179,7 +173,7 @@ abstract class Model
      */
     public static function findOne(int $id = null)
     {
-        $tableName = self::$tableName;
+        $tableName = static::tableName();
         $result = null;
         if ($id !== null) {
             $SQL = "SELECT * FROM $tableName
@@ -207,7 +201,7 @@ abstract class Model
     public static function find(array $where = [], int $limit = null, string $order = null)
     {
 
-        $tableName = self::$tableName;
+        $tableName = static::tableName();
         $result = null;
         $SQL = "SELECT * FROM $tableName";
         if (!empty($where)) {
@@ -240,7 +234,7 @@ abstract class Model
     public static function select(array $args = null): QueryBuilder
     {
         $qb = new QueryBuilder();
-        $result = $qb->select(self::$tableName, $args);
+        $result = $qb->select(static::tableName(), $args);
 
 //        if (is_array($result) && $result['convert']) {
 //            $models = [];
